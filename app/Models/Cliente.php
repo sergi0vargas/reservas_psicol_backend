@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'documento';
     
     protected $fillable = [
         'documento',
@@ -19,6 +21,6 @@ class Cliente extends Model
     ];
 
     public function eventos(){
-        return $this->hasMany('App\Models\Evento');
+        return $this->hasMany('App\Models\Evento','id','evento_id');
     }
 }

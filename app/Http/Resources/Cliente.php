@@ -14,6 +14,7 @@ class Cliente extends JsonResource
             'correo' => $this->correo,
             'telefono' => $this->telefono,
             'direccion' => $this->direccion,
+            'eventos' => $this->eventos,
             'fecha_ultima_compra' => $this->fecha_ultima_compra,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

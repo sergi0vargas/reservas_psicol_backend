@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Cliente;
+use App\Models\Evento;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Validator;
@@ -36,15 +37,14 @@ class ClienteController extends BaseController
     }
 
     
-    public function show($documento)
+    public function show($id)
     {
-        $cliente = Cliente::find($documento);
-  
+        $cliente = Cliente::find($id);
         if (is_null($cliente)) {
-            return $this->sendError('Evento NO encontrado.');
+            return $this->sendError('Cliente NO encontrado.');
         }
    
-        return $this->sendResponse(new ClienteResource($evento), 'Cliente Consultado Correctamente.');
+        return $this->sendResponse(new ClienteResource($cliente), 'Cliente Consultado Correctamente.');
     }
 
     public function update(Request $request, Cliente $cliente)
@@ -72,6 +72,38 @@ class ClienteController extends BaseController
         return $this->sendResponse(new ClienteResource($cliente), 'Cliente Actualizado Correctamente.');
     }
 
+
+    public function vender(Request $request)
+    {
+        $clienteID = $request->get('c');
+        $eventoID = $request->get('e');
+
+        $cliente = Cliente::find($clienteID);
+        $evento = Evento::find($eventoID);
+
+        if($evento != null && $cliente != null){
+            if($evento->vendidas < $evento->aforo){
+                //FALTA EVALUAR CUANTAS ENTRADAS PUEDE COMPRAR UN CLIENTE 
+                $evento->vendidas ++;
+                $evento->clientes()->attach($cliente->documento);
+                $evento->save();
+    
+                $cliente->fecha_ultima_compra = \Carbon\carbon::now();
+                $cliente->evento_id = $evento->id;
+                $cliente->save();
+                
+                \DB::table('cliente_evento')->insert([
+                    'cliente_documento' => $cliente->documento,
+                    'evento_id' => $evento->id
+                ]);
+
+                return $this->sendResponse(new ClienteResource($cliente), 'Boleta Vendida Correctamente.');
+            }else{
+                return $this->sendResponse(['Aforo'=>$evento->aforo, 'vendidas'=> $evento->vendidas], 'Error al vender Boleta. No hay disponibilidad');  
+            }
+        }
+        return $this->sendResponse(['cliente' => $cliente, 'evento' => $evento], 'No se encontro usuario o evento.');  
+    }
    
     public function destroy(Cliente $cliente)
     {

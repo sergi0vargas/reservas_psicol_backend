@@ -18,7 +18,9 @@ Route::post('login', [RegisterController::class, 'login']);
      
 Route::middleware('auth:api')->group( function () {
     Route::resource('eventos', EventoController::class);
-});   
+});
+
+Route::middleware('auth:api')->put('clientes/vender', [ClienteController::class, 'vender'])->name('clientes.vender');
 
 Route::middleware('auth:api')->group( function () {
     Route::resource('clientes', ClienteController::class);

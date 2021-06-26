@@ -20,7 +20,7 @@ class CreateClientesTable extends Migration
             $table->string('telefono');
             $table->string('direccion');
             $table->date('fecha_ultima_compra')->nullable();
-            $table->unsignedBigInteger('ultimo_evento_id')->nullable();
+            $table->unsignedBigInteger('evento_id')->nullable();
             $table->timestamps();
         });
     }

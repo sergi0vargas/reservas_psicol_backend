@@ -13,7 +13,9 @@ class Evento extends JsonResource
             'descripcion' => $this->descripcion,
             'aforo' => $this->aforo,
             'vendidas' => $this->vendidas,
+            'clientes' => $this->clientes,
             'fecha_evento' => $this->fecha_evento,
+            'clientes' => $this->clientes,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

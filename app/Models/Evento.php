@@ -16,4 +16,8 @@ class Evento extends Model
         'vendidas',
         'fecha_evento',
     ];
+
+    public function clientes(){
+        return $this->belongsToMany('App\Models\Cliente');
+    }
 }
