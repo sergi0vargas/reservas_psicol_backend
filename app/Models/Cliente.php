@@ -17,4 +17,8 @@ class Cliente extends Model
         'direccion',
         'fecha_ultima_compra',
     ];
+
+    public function eventos(){
+        return $this->hasMany('App\Models\Evento');
+    }
 }
