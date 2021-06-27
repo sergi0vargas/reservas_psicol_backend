@@ -9,6 +9,7 @@ class Evento extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'titulo' => $this->titulo,
             'descripcion' => $this->descripcion,
             'aforo' => $this->aforo,
