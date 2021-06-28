@@ -22,7 +22,7 @@ class ClienteController extends BaseController
         $input = $request->all();
    
         $validator = Validator::make($input, [
-            'documento' => 'required|',//agregar unique
+            'documento' => 'required',//agregar unique
             'nombre' => 'required',
             'correo' => 'required',
             'telefono' => 'required',

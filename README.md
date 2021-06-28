@@ -25,6 +25,7 @@ npm install
 Crear db y configurar en .env
 php artisan migrate --seed
 php artisan passport:install
+php artisan serve
 ```
 
 usuario de pruebas
