@@ -50,25 +50,19 @@ class ClienteController extends BaseController
     public function update(Request $request, Cliente $cliente)
     {
         $input = $request->all();
-   
-        $validator = Validator::make($input, [
-            'documento' => 'required|',//agregar unique
-            'nombre' => 'required',
-            'correo' => 'required',
-            'telefono' => 'required',
-            'direccion' => 'required'
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Error de Validacion.', $validator->errors());       
-        }
-        
+        $cliente = Cliente::find($input['documento']);
         $cliente->documento = $input['documento'];
         $cliente->nombre = $input['nombre'];
         $cliente->correo = $input['correo'];
         $cliente->telefono = $input['telefono'];
         $cliente->direccion = $input['direccion'];
-        $evento->save();
-
+        try{
+            $cliente->save();
+         }
+         catch(\Exception $e){
+            // do task when error
+            return("Error ".$e);
+         }
         return $this->sendResponse(new ClienteResource($cliente), 'Cliente Actualizado Correctamente.');
     }
 
@@ -80,7 +74,6 @@ class ClienteController extends BaseController
 
         $cliente = Cliente::find($clienteID);
         $evento = Evento::find($eventoID);
-
         if($evento != null && $cliente != null){
             if($evento->vendidas < $evento->aforo){
                 //FALTA EVALUAR CUANTAS ENTRADAS PUEDE COMPRAR UN CLIENTE 
