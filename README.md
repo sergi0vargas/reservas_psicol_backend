@@ -1,4 +1,4 @@
-# Proyecto Sergio Vargas - Prueba Psicol
+# Proyecto Sergio Vargas - Prueba Psicol BACKEND
 
 backend en laravel 8 usando passport
 
@@ -17,3 +17,38 @@ backend en laravel 8 usando passport
 - Limpieza del código y uso de buenas prácticas de Laravel
 - Conocimiento API Rest
 - Creatividad a la hora de cumplir las funcionalidades del producto
+
+## Project setup
+```
+composer install
+npm install
+Crear db y configurar en .env
+php artisan migrate --seed
+php artisan passport:install
+```
+
+## API -- para pruebas
+- Registrar Usuario -- requiere name, email, password, c_password
+```
+http://localhost/api/register
+```
+- Logear Usuario -- requiere email, password -- retorna TOKEN
+```
+http://localhost/api/login
+```
+- Listar Eventos -- requiere token
+```
+http://localhost/api/eventos
+```
+- Listar Clientes -- requiere token
+```
+http://localhost/api/clientes
+```
+- Nuevo Cliente -- requiere token documento nombre correo telefono direccion
+```
+http://localhost/api/clientes
+```
+- Vender -- requiere token documento idEvento
+```
+http://localhost/api/clientes/vender?c=docuemento&e=idEvento
+```
