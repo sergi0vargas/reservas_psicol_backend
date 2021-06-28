@@ -27,6 +27,12 @@ php artisan migrate --seed
 php artisan passport:install
 ```
 
+usuario de pruebas
+```
+sergiovargas9@gmail.com
+123456
+```
+
 ## API -- para pruebas
 - Registrar Usuario -- requiere name, email, password, c_password
 ```
