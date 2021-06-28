@@ -23,6 +23,7 @@ backend en laravel 8 usando passport
 composer install
 npm install
 Crear db y configurar en .env
+php artisan key:generate
 php artisan migrate --seed
 php artisan passport:install
 php artisan serve
